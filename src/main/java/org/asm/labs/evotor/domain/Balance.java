@@ -18,9 +18,6 @@ public class Balance {
     @Column(name = "balance")
     private float balance;
     
-    @OneToOne(mappedBy = "balance")
-    private Account account;
-    
     public Balance(float balance) {
         this.balance = balance;
     }

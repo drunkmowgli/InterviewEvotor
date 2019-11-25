@@ -13,20 +13,20 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 @DisplayName("Тестирование сервиса по работе с аккаунтом")
-@DataJpaTest
-@Import({AccountServiceImpl.class})
+@SpringBootTest
 class AccountServiceImplTest {
     
     @Autowired
@@ -64,8 +64,7 @@ class AccountServiceImplTest {
     @DisplayName("Должен выбросить пользовательское исключение AccountAlreadyExistException, " +
         "если аккаунт с таким логином уже существует")
     void shouldThrowAccountAlreadyExistException() {
-        Account account = new Account("testLogin", "testPassword");
-        when(accountRepository.save(account)).thenReturn(account);
+        when(accountRepository.save(any())).thenThrow(new DataIntegrityViolationException("Duplicate keys"));
         assertThrows(AccountAlreadyExistException.class,
             () -> accountService.save("testLogin", "testPassword"));
     }

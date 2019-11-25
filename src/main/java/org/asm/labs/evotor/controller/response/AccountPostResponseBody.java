@@ -3,7 +3,6 @@ package org.asm.labs.evotor.controller.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.Data;
 
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import java.util.Map;
     "result",
     "extras"
 })
-@Data
 public class AccountPostResponseBody {
     
     @JsonProperty("result")
@@ -40,13 +38,4 @@ public class AccountPostResponseBody {
         return extras;
     }
     
-    @JsonProperty("result")
-    public void setResult(int result) {
-        this.result = result;
-    }
-    
-    @JsonProperty("extras")
-    public void setExtras(Map<String, Object> extras) {
-        this.extras = extras;
-    }
 }

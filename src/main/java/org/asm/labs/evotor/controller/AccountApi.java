@@ -19,12 +19,12 @@ import java.util.Map;
 
 @RestController
 @PropertySource("classpath:application.yml")
-public class UserApi {
+public class AccountApi {
     
     private final AccountService accountService;
     
     @Autowired
-    public UserApi(AccountService accountService) {
+    public AccountApi(AccountService accountService) {
         this.accountService = accountService;
     }
     

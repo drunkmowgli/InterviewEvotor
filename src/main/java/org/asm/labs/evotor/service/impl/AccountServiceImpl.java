@@ -29,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
             account.setBalance(balance);
             accountRepository.save(account);
         } catch (DataIntegrityViolationException e) {
-            throw new AccountAlreadyExistException("Аккаунт уже существует");
+            throw new AccountAlreadyExistException("Аккаунт с таким логином уже существует");
         }
     }
     
@@ -44,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
                 
             }
         } catch (NullPointerException e) {
-            throw new AccountNotExistException("Аккаунт с таким именем не существует");
+            throw new AccountNotExistException("Аккаунт с таким логином не существует");
         }
     }
 }
