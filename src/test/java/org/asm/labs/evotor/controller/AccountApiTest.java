@@ -26,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+@DisplayName("Тестирование контроллера по работе с аккаунтом")
 @WebMvcTest(AccountApi.class)
 @TestPropertySource("classpath:application.yml")
 class AccountApiTest {
