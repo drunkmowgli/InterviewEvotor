@@ -4,16 +4,20 @@ package org.asm.labs.evotor.service.impl;
 import lombok.SneakyThrows;
 import org.asm.labs.evotor.domain.Account;
 import org.asm.labs.evotor.repository.AccountRepository;
+import org.asm.labs.evotor.service.AccountService;
 import org.asm.labs.evotor.service.exception.AccountAlreadyExistException;
 import org.asm.labs.evotor.service.exception.AccountNotExistException;
 import org.asm.labs.evotor.service.exception.IncorrectPasswordException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.*;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,19 +28,15 @@ import static org.mockito.Mockito.when;
 
 
 @DisplayName("Тестирование сервиса по работе с аккаунтом")
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {AccountServiceImpl.class})
 class AccountServiceImplTest {
     
-    @InjectMocks
-    private AccountServiceImpl accountService;
+    @Autowired
+    private AccountService accountService;
     
-    @Mock
+    @MockBean
     private AccountRepository accountRepository;
-    
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-    }
     
     @Captor
     private ArgumentCaptor<Account> argumentCaptor;
