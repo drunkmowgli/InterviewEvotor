@@ -1,0 +1,19 @@
+sudo: required
+
+language: java
+jdk: openjdk11
+
+cache:
+  directories:
+    - $HOME/.m2
+
+before_deploy:
+  - git config --local user.name "drunkmowgli"
+  - git config --local user.email "drunkmowgli@gmail.com"
+
+jobs:
+  include:
+    - stage: test
+      script: mvn test -B
+    - stage: package
+      script: mvn package -Dmaven.test.skip=true -B

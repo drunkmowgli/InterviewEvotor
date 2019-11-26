@@ -6,6 +6,7 @@ import org.asm.labs.evotor.service.AccountService;
 import org.asm.labs.evotor.service.exception.AccountAlreadyExistException;
 import org.asm.labs.evotor.service.exception.AccountNotExistException;
 import org.asm.labs.evotor.service.exception.IncorrectPasswordException;
+import org.asm.labs.evotor.service.exception.IncorrectUserInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,15 @@ public class AccountServiceImpl implements AccountService {
     }
     
     @Override
-    public void save(String login, String password) throws AccountAlreadyExistException {
+    public void save(String login, String password) throws AccountAlreadyExistException, IncorrectUserInputException {
         try {
-            Account account = new Account(login, password);
-            account.setBalance(0);
-            accountRepository.save(account);
+            if (login.equals("") || password.equals("")) {
+                throw new IncorrectUserInputException();
+            } else {
+                Account account = new Account(login, password);
+                account.setBalance(0);
+                accountRepository.save(account);
+            }
         } catch (DataIntegrityViolationException e) {
             throw new AccountAlreadyExistException();
         }

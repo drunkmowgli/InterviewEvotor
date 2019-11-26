@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -18,9 +19,11 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
+    @NotNull
     @Column(name = "login", unique = true, updatable = false)
     private String login;
     
+    @NotNull
     @Column(name = "password")
     private String password;
     

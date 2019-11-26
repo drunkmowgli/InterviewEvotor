@@ -8,6 +8,7 @@ import org.asm.labs.evotor.service.AccountService;
 import org.asm.labs.evotor.service.exception.AccountAlreadyExistException;
 import org.asm.labs.evotor.service.exception.AccountNotExistException;
 import org.asm.labs.evotor.service.exception.IncorrectPasswordException;
+import org.asm.labs.evotor.service.exception.IncorrectUserInputException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -87,10 +88,22 @@ class AccountServiceImplTest {
     @Test
     @DisplayName("Должен выбросить пользовательское исключение AccountNotExistException, " +
         "если пользователя с таким логином не существует")
-    void shouldThrowsAccountNotExistException() {
+    void shouldThrowAccountNotExistException() {
         Account account = new Account("testLogin", "testPassword");
         when(accountRepository.findByLogin("testLogin")).thenReturn(Optional.of(account));
         assertThrows(AccountNotExistException.class,
             () -> accountService.getUser("testLogin1", "testPassword"));
+    }
+    
+    @Test
+    @DisplayName("Должен выбросить пользовательское исключение IncorrectUserInputException, " +
+        "если пользователь оставил логин или пароль пустым")
+    void shouldThrowIncorrectUserInputException() {
+        assertThrows(IncorrectUserInputException.class,
+            () -> accountService.save("", "testPassword"));
+        assertThrows(IncorrectUserInputException.class,
+            () -> accountService.save("testLogin", ""));
+        assertThrows(IncorrectUserInputException.class,
+            () -> accountService.save("", ""));
     }
 }
