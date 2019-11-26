@@ -7,7 +7,6 @@ import org.asm.labs.evotor.service.AccountService;
 import org.asm.labs.evotor.service.exception.AccountAlreadyExistException;
 import org.asm.labs.evotor.service.exception.AccountNotExistException;
 import org.asm.labs.evotor.service.exception.IncorrectPasswordException;
-import org.asm.labs.evotor.service.exception.IncorrectUserInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,7 +52,7 @@ public class AccountApi {
             return new AccountPostResponseBody(3);
         } catch (IncorrectPasswordException e) {
             return new AccountPostResponseBody(4);
-        } catch (RuntimeException | IncorrectUserInputException e) {
+        } catch (RuntimeException e) {
             return new AccountPostResponseBody(2);
         }
     }
