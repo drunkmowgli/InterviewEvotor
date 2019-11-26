@@ -41,7 +41,7 @@ public class AccountApi {
                 case ("get-balance"):
                     Account account = accountService.getUser(login, password);
                     Map<String, Object> extras = new HashMap<>();
-                    extras.put("balance", account.getBalance().getBalance());
+                    extras.put("balance", account.getBalance());
                     return new AccountPostResponseBody(0, extras);
                 default:
                     throw new RuntimeException();

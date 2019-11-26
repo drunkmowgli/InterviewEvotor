@@ -2,7 +2,6 @@ package org.asm.labs.evotor.controller;
 
 import lombok.SneakyThrows;
 import org.asm.labs.evotor.domain.Account;
-import org.asm.labs.evotor.domain.Balance;
 import org.asm.labs.evotor.service.AccountService;
 import org.asm.labs.evotor.service.exception.AccountAlreadyExistException;
 import org.asm.labs.evotor.service.exception.AccountNotExistException;
@@ -78,8 +77,7 @@ class AccountApiTest {
     @SneakyThrows
     void shouldReturnStatusCode200onRequestGetUserAccountBalance() {
         Account account = new Account("testLogin", "testPassword");
-        Balance balance = new Balance(12.53f);
-        account.setBalance(balance);
+        account.setBalance(12.53f);
         when(accountService.getUser("testLogin", "testPassword")).thenReturn(account);
         String payload = "{\"type\":\"get-balance\", \"login\":\"testLogin\", \"password\":\"testPassword\"}";
         mockMvc.perform(post(requestPath)

@@ -1,7 +1,6 @@
 package org.asm.labs.evotor.service.impl;
 
 import org.asm.labs.evotor.domain.Account;
-import org.asm.labs.evotor.domain.Balance;
 import org.asm.labs.evotor.repository.AccountRepository;
 import org.asm.labs.evotor.service.AccountService;
 import org.asm.labs.evotor.service.exception.AccountAlreadyExistException;
@@ -26,9 +25,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void save(String login, String password) throws AccountAlreadyExistException {
         try {
-            Balance balance = new Balance(0);
             Account account = new Account(login, password);
-            account.setBalance(balance);
+            account.setBalance(0);
             accountRepository.save(account);
         } catch (DataIntegrityViolationException e) {
             throw new AccountAlreadyExistException("Аккаунт с таким логином уже существует");

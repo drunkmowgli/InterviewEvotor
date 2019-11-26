@@ -24,9 +24,8 @@ public class Account {
     @Column(name = "password")
     private String password;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "balance_id", referencedColumnName = "id")
-    private Balance balance;
+    @Column(name = "balance")
+    private float balance;
     
     public Account(String login, String password) {
         this.login = login;
