@@ -47,6 +47,8 @@
     1. Запускаем docker container postgresql:
         docker run --name postgres -p 5432:5432 -e POSTGRES_USER=prod_user -e POSTGRES_PASSWORD=prod_password -d postgres
         
+        P.S. Необходимо создать БД interview
+        
     2. Запускаем приложение: 
         ./evotor-0.0.1-SNAPSHOT.jar
         
