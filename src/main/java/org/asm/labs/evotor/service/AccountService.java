@@ -8,7 +8,7 @@ import org.asm.labs.evotor.service.exception.IncorrectPasswordException;
 public interface AccountService {
     
     /**
-     * Save user to DB.
+     * Сохранение пользовательского аккаунта в репозитории.
      *
      * @param login    - Account's login
      * @param password - Account's password
@@ -16,7 +16,7 @@ public interface AccountService {
     void save(String login, String password) throws AccountAlreadyExistException;
     
     /**
-     * Get user from DB.
+     * Получение пользовательского аккаунта из репозитория.
      *
      * @param login    - Account's login
      * @param password - Account's password
