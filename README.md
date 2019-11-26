@@ -73,4 +73,7 @@
         
     6.  request: curl -X POST "http://localhost:8888/api/v1/accounts" -d '{"type":"create123", "login":"testLogin", "password":"testLogin" }' -H "Content-Type: application/json"
         response: {"result":2}
+        
+    7.  request: curl -X POST "http://localhost:8888/api/v1/accounts" -d '{ }' -H "Content-Type: application/json" 
+        response: {"result":2}
     
