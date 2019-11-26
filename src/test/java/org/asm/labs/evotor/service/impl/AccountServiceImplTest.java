@@ -19,6 +19,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -56,8 +58,8 @@ class AccountServiceImplTest {
     @DisplayName("Должен корректно возвращать аккаунт пользователя")
     @SneakyThrows
     void shouldCorrectReturnUserAccount() {
-        when(accountRepository.findByLogin("testLogin")).thenReturn(new Account("testLogin",
-            "testPassword"));
+        Account account = new Account("testLogin", "testPassword");
+        when(accountRepository.findByLogin("testLogin")).thenReturn(Optional.of(account));
         Account actualAccount = accountService.getUser("testLogin", "testPassword");
         assertEquals("testLogin", actualAccount.getLogin());
         assertEquals("testPassword", actualAccount.getPassword());
@@ -76,8 +78,8 @@ class AccountServiceImplTest {
     @DisplayName("Должен выбросить пользовательское исключение IncorrectPasswordException, " +
         "если пароль не соответствует логину")
     void shouldThrowIncorrectPasswordException() {
-        when(accountRepository.findByLogin("testLogin")).thenReturn(new Account("testLogin",
-            "testPassword"));
+        Account account = new Account("testLogin", "testPassword");
+        when(accountRepository.findByLogin("testLogin")).thenReturn(Optional.of(account));
         assertThrows(IncorrectPasswordException.class,
             () -> accountService.getUser("testLogin", "testPassword1"));
     }
@@ -86,8 +88,8 @@ class AccountServiceImplTest {
     @DisplayName("Должен выбросить пользовательское исключение AccountNotExistException, " +
         "если пользователя с таким логином не существует")
     void shouldThrowsAccountNotExistException() {
-        when(accountRepository.findByLogin("testLogin")).thenReturn(new Account("testLogin",
-            "testPassword"));
+        Account account = new Account("testLogin", "testPassword");
+        when(accountRepository.findByLogin("testLogin")).thenReturn(Optional.of(account));
         assertThrows(AccountNotExistException.class,
             () -> accountService.getUser("testLogin1", "testPassword"));
     }

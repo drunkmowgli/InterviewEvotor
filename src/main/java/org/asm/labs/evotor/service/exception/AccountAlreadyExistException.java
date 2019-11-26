@@ -1,7 +1,7 @@
 package org.asm.labs.evotor.service.exception;
 
 public class AccountAlreadyExistException extends Exception {
-    public AccountAlreadyExistException(String message) {
-        super(message);
+    public AccountAlreadyExistException() {
+        super("Аккаунт с таким логином уже существует");
     }
 }

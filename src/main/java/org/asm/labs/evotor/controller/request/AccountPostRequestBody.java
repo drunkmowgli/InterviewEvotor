@@ -26,24 +26,24 @@ public class AccountPostRequestBody {
         return type;
     }
     
-    @JsonProperty("login")
-    public String getLogin() {
-        return login;
-    }
-    
-    @JsonProperty("password")
-    public String getPassword() {
-        return password;
-    }
-    
     @JsonProperty("type")
     public void setType(String type) {
         this.type = type;
     }
     
     @JsonProperty("login")
+    public String getLogin() {
+        return login;
+    }
+    
+    @JsonProperty("login")
     public void setLogin(String login) {
         this.login = login;
+    }
+    
+    @JsonProperty("password")
+    public String getPassword() {
+        return password;
     }
     
     @JsonProperty("password")

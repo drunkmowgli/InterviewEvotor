@@ -59,7 +59,7 @@ class AccountApiTest {
     @SneakyThrows
     void should200WithCode1onCreateExistingAccount() {
         String payload = "{\"type\":\"create\", \"login\":\"testLogin\", \"password\":\"testPassword\"}";
-        doThrow(new AccountAlreadyExistException("Аккаунт с таким логином уже существует"))
+        doThrow(new AccountAlreadyExistException())
             .when(accountService).save("testLogin", "testPassword");
         mockMvc.perform(post(requestPath)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -97,7 +97,7 @@ class AccountApiTest {
     @SneakyThrows
     void should200WithCode3onGetAccountBalanceWhenLoginNotValid() {
         when(accountService.getUser("testLogin1", "testPassword"))
-            .thenThrow(new AccountNotExistException("Аккаунт с таким логином не существует"));
+            .thenThrow(new AccountNotExistException());
         String payload = "{\"type\":\"get-balance\", \"login\":\"testLogin1\", \"password\":\"testPassword\"}";
         mockMvc.perform(post(requestPath)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -115,7 +115,7 @@ class AccountApiTest {
     @SneakyThrows
     void should200WithCode4onGetAccountBalanceWhenPasswordNotValid() {
         when(accountService.getUser("testLogin", "testPassword1"))
-            .thenThrow(new IncorrectPasswordException("Неверный пароль"));
+            .thenThrow(new IncorrectPasswordException());
         String payload = "{\"type\":\"get-balance\", \"login\":\"testLogin\", \"password\":\"testPassword1\"}";
         mockMvc.perform(post(requestPath)
             .contentType(MediaType.APPLICATION_JSON_UTF8)

@@ -29,23 +29,19 @@ public class AccountServiceImpl implements AccountService {
             account.setBalance(0);
             accountRepository.save(account);
         } catch (DataIntegrityViolationException e) {
-            throw new AccountAlreadyExistException("Аккаунт с таким логином уже существует");
+            throw new AccountAlreadyExistException();
         }
     }
     
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public Account getUser(String login, String password) throws IncorrectPasswordException, AccountNotExistException {
-        try {
-            Account account = accountRepository.findByLogin(login);
-            if (account.getPassword().equals(password)) {
-                return account;
-            } else {
-                throw new IncorrectPasswordException("Не верный пароль");
-                
-            }
-        } catch (NullPointerException e) {
-            throw new AccountNotExistException("Аккаунт с таким логином не существует");
+        Account account = accountRepository.findByLogin(login).orElseThrow(AccountNotExistException::new);
+        if (account.getPassword().equals(password)) {
+            return account;
+        } else {
+            throw new IncorrectPasswordException();
+            
         }
     }
 }
