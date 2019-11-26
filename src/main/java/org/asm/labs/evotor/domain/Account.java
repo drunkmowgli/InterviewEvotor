@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@NamedEntityGraph(name = "accountGraph", includeAllAttributes = true)
 @Entity
 @Table(name = "account")
 public class Account {
