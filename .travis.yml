@@ -19,4 +19,4 @@ jobs:
       script: mvn package -Dmaven.test.skip=true -B
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t 22c6399c-aa5f-4942-b158-787751314396
+  - bash <(curl -s https://codecov.io/bash)
