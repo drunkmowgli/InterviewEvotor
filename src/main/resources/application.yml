@@ -8,7 +8,7 @@ spring:
   jpa:
     hibernate.ddl-auto: create-drop
     generate-ddl: false
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         jdbc:

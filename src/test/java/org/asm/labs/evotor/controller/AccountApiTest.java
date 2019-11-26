@@ -42,7 +42,7 @@ class AccountApiTest {
     @Test
     @DisplayName("Должен вернуть статус код 200 на запрос создания пользовательского аккаунта")
     @SneakyThrows
-    void shouldReturnStatusCode200onRequestCreateUserAccount() {
+    void should200WithCode1onCreateAccount() {
         String payload = "{\"type\":\"create\", \"login\":\"testLogin\", \"password\":\"testPassword\"}";
         mockMvc.perform(post(requestPath)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -57,7 +57,7 @@ class AccountApiTest {
     @DisplayName("Должен вернуть статус код 200 на запрос создания пользовательского аккаунта и ответ, " +
         "содержащий 1, если пользователь с таким логином уже существует")
     @SneakyThrows
-    void shouldReturnStatusCode200onRequestCreateUserAccountAnd1inBodyIfUserAccountAlreadyExist() {
+    void should200WithCode1onCreateExistingAccount() {
         String payload = "{\"type\":\"create\", \"login\":\"testLogin\", \"password\":\"testPassword\"}";
         doThrow(new AccountAlreadyExistException("Аккаунт с таким логином уже существует"))
             .when(accountService).save("testLogin", "testPassword");
@@ -75,7 +75,7 @@ class AccountApiTest {
     @DisplayName("Должен вернуть статус код 200 на запрос получения баланса пользователльского аккаунта и ответ, " +
         "содержащий 0 с балансом")
     @SneakyThrows
-    void shouldReturnStatusCode200onRequestGetUserAccountBalance() {
+    void should200WithCode0onGetAccountBalance() {
         Account account = new Account("testLogin", "testPassword");
         account.setBalance(12.53f);
         when(accountService.getUser("testLogin", "testPassword")).thenReturn(account);
@@ -95,7 +95,7 @@ class AccountApiTest {
     @DisplayName("Должен вернуть статус код 200 на запрос получения баланса пользовательского аккаунта и ответ, " +
         "содержащий 3, если пользователя не существует")
     @SneakyThrows
-    void shouldReturnStatusCode200onRequestGetUserAccountBalanceAnd3inBodyIfUserAccountNotExist() {
+    void should200WithCode3onGetAccountBalanceWhenLoginNotValid() {
         when(accountService.getUser("testLogin1", "testPassword"))
             .thenThrow(new AccountNotExistException("Аккаунт с таким логином не существует"));
         String payload = "{\"type\":\"get-balance\", \"login\":\"testLogin1\", \"password\":\"testPassword\"}";
@@ -113,7 +113,7 @@ class AccountApiTest {
     @DisplayName("Должен вернуть статус код 200 на запрос получения баланса пользовательского аккаунта и ответ, " +
         "содержащий 4, если пароль для пользовательского аккаунта неверный")
     @SneakyThrows
-    void shouldReturnStatusCode200onRequestGetUserAccountBalanceAnd4inBodyIfUserAccountPasswordNotValid() {
+    void should200WithCode4onGetAccountBalanceWhenPasswordNotValid() {
         when(accountService.getUser("testLogin", "testPassword1"))
             .thenThrow(new IncorrectPasswordException("Неверный пароль"));
         String payload = "{\"type\":\"get-balance\", \"login\":\"testLogin\", \"password\":\"testPassword1\"}";
@@ -130,7 +130,7 @@ class AccountApiTest {
     @DisplayName("Должен вернуть статус код 200 на запрос с невалидным телом и ответ, " +
         "содержащий 2")
     @SneakyThrows
-    void shouldReturnStatusCode200onRequestWithInvalidBody() {
+    void should200WithCode2onRequestWithInvalidBody() {
         String payload = "{\"type\":\"create-account\", \"login\":\"testLogin\", \"password\":\"testPassword\"}";
         doThrow(new RuntimeException("Аккаунт с таким логином уже существует"))
             .when(accountService).save("testLogin", "testPassword");
