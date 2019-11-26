@@ -10,6 +10,8 @@ import org.asm.labs.evotor.service.exception.IncorrectPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -34,6 +36,7 @@ public class AccountServiceImpl implements AccountService {
     }
     
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public Account getUser(String login, String password) throws IncorrectPasswordException, AccountNotExistException {
         try {
             Account account = accountRepository.findByLogin(login);
