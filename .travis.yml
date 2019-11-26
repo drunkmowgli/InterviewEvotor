@@ -17,7 +17,7 @@ jobs:
       script: mvn test -B
     - stage: package
       script: mvn package -Dmaven.test.skip=true -B
-    - script: mvn coverture:cobertura
+    - script: mvn cobertura:cobertura
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t 22c6399c-aa5f-4942-b158-787751314396
