@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.com/drunkmowgli/InterviewEvotor.svg?branch=master)](https://travis-ci.com/drunkmowgli/InterviewEvotor)
 
+[![codecov](https://codecov.io/gh/drunkmowgli/InterviewEvotor/branch/master/graph/badge.svg)](https://codecov.io/gh/drunkmowgli/InterviewEvotor)
+
 # Задание:
 
 Написать WEB-сервис, который слушает определенный URL,
